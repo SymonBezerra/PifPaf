@@ -123,6 +123,10 @@ public class Game {
         return rule;
     }
 
+    public void setMould(Mould mould){
+        
+    }
+
     public void setMouldOne() {
         int index = 0;
         for (int card = 0; card < 3; card++){
