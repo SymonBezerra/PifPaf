@@ -21,9 +21,9 @@ public class Game {
         boolean wins = true;
         while (wins){
             wins = false;
-            setMouldOne();
-            setMouldTwo();
-            setMouldThree();
+            buildMould(mouldOne);
+            buildMould(mouldTwo);
+            buildMould(mouldThree);
             boolean playerWins = winner();
             if (playerWins){
                 System.out.println("You win!");
@@ -123,30 +123,10 @@ public class Game {
         return rule;
     }
 
-    public void setMould(Mould mould){
-        
-    }
-
-    public void setMouldOne() {
+    private void buildMould(Mould mould){
         int index = 0;
         for (int card = 0; card < 3; card++){
-            mouldOne.getMould().set(index, player.getHand().get(card));
-            index++;
-        }
-    }
-
-    public void setMouldTwo() {
-        int index = 0;
-        for (int card = 3; card < 6; card++){
-            mouldTwo.getMould().set(index, player.getHand().get(card));
-            index++;
-        }
-    }
-
-    public void setMouldThree() {
-        int index = 0;
-        for (int card = 6; card < 9; card++){
-            mouldThree.getMould().set(index, player.getHand().get(card));
+            mould.setMould(index, player.getHand().get(card));
             index++;
         }
     }

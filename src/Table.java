@@ -1,9 +1,6 @@
 import java.util.*;
 public class Table {
-    private List<Card> cards;
-    public Table (){
-        cards = new ArrayList<>();
-    }
+    private List<Card> cards = new ArrayList<>();
 
     public List<Card> getCards() {
         return cards;

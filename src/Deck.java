@@ -1,11 +1,17 @@
 import java.util.*;
 public class Deck{
-    private List<Card> deck = new ArrayList<>();
+    private List<Card> deck;
 
     public Deck (){
+        deck = new ArrayList<>();
+        build();
+        // 104 card game: build() 2x
+    }
+
+    private void build () {
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 13; j++){
-                add(j, i);
+                this.deck.add(new Card(Card.ranks[j], Card.suits[i]));
             }
         }
     }
@@ -24,9 +30,6 @@ public class Deck{
         return pop;
     }
 
-    public void add (int rank, int suit){
-        this.deck.add(new Card(Card.ranks[rank], Card.suits[suit]));
-    }
     public List<Card> getDeck() {
         return deck;
     }

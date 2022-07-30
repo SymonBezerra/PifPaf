@@ -3,10 +3,9 @@ public class Mould {
     private ArrayList<Card> mould;
     public Mould (){
         mould = new ArrayList<>();
-        // for
-        mould.add(new Card(Card.ranks[0], Card.suits[0]));
-        mould.add(new Card(Card.ranks[0], Card.suits[0]));
-        mould.add(new Card(Card.ranks[0], Card.suits[0]));
+        for (int i = 0; i < 3; i++){
+            mould.add(new Card(Card.ranks[0], Card.suits[0]));
+        }
     }
 
     public Card item (int index) {
