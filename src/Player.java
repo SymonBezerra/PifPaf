@@ -18,7 +18,7 @@ public class Player {
         }
     }
 
-    private void sortHand (){
+    protected void sortHand (){
         Collections.sort(hand, new Comparator<Card>(){
             @Override
             public int compare (Card c1, Card c2){

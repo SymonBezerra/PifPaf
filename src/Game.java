@@ -1,12 +1,12 @@
 import java.util.*;
 
-public class SinglePlayer {
+public class Game {
     private Scanner input;
     private Table table;
     public Deck deck;
     private Player player;
 
-    public SinglePlayer(){
+    public Game(){
         table = new Table();
         deck = new Deck();
         Collections.shuffle(deck.getDeck());
@@ -19,15 +19,13 @@ public class SinglePlayer {
         while (wins){
             wins = false;
             player.setMoulds();
-            System.out.println(player.getMouldOne().getMould());
-            System.out.println(player.getMouldTwo().getMould());
-            System.out.println(player.getMouldThree().getMould());
             
             boolean playerWins = winner(player);
             if (playerWins){
                 System.out.println("You win!");
                 break;
             }
+
             if (table.getCards().size() == 0){
                 movePull();
             }

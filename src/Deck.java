@@ -5,6 +5,7 @@ public class Deck{
     public Deck (){
         deck = new ArrayList<>();
         build();
+        build();
         // 104 card game: build() 2x
     }
 
