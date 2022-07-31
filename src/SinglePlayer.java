@@ -1,22 +1,16 @@
 import java.util.*;
 
-public class Game {
+public class SinglePlayer {
     private Scanner input;
     private Table table;
     public Deck deck;
     private Player player;
-    private Mould mouldOne;
-    private Mould mouldTwo;
-    private Mould mouldThree;
 
-    public Game(){
+    public SinglePlayer(){
         table = new Table();
         deck = new Deck();
-        player = new Player("Player", deck);
-        mouldOne = new Mould(player, 0, 2);
-        mouldTwo = new Mould(player, 3, 5);
-        mouldThree = new Mould(player, 6, 8);
         Collections.shuffle(deck.getDeck());
+        player = new Player("Player", deck);
         input = new Scanner(System.in);
         movePull();
         System.out.println("Welcome to PifPaf! \n ");
@@ -24,11 +18,12 @@ public class Game {
         boolean wins = true;
         while (wins){
             wins = false;
-            mouldOne.setMould();
-            mouldTwo.setMould();
-            mouldThree.setMould();
+            player.setMoulds();
+            System.out.println(player.getMouldOne().getMould());
+            System.out.println(player.getMouldTwo().getMould());
+            System.out.println(player.getMouldThree().getMould());
             
-            boolean playerWins = winner();
+            boolean playerWins = winner(player);
             if (playerWins){
                 System.out.println("You win!");
                 break;
@@ -84,18 +79,18 @@ public class Game {
         player.getHand().set(card - 1, table.pop());
     }
 
-    public boolean winner(){
+    public boolean winner(Player player){
         boolean mouldOneReady = 
-        mouldRuleOne(mouldOne) ||
-        mouldRuleTwo(mouldOne);
+        mouldRuleOne(player.getMouldOne()) ||
+        mouldRuleTwo(player.getMouldOne());
 
         boolean mouldTwoReady = 
-        mouldRuleOne(mouldTwo) ||
-        mouldRuleTwo(mouldTwo);
+        mouldRuleOne(player.getMouldTwo()) ||
+        mouldRuleTwo(player.getMouldTwo());
 
         boolean mouldThreeReady = 
-        mouldRuleOne(mouldThree) ||
-        mouldRuleTwo(mouldThree);
+        mouldRuleOne(player.getMouldTwo()) ||
+        mouldRuleTwo(player.getMouldTwo());
 
         if (mouldOneReady && mouldTwoReady && mouldThreeReady){
             return true;

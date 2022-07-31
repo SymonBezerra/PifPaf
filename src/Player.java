@@ -2,16 +2,23 @@ import java.util.*;
 public class Player {
     private List<Card> hand = new ArrayList<>();
     private int j = 0;
+    private Mould mouldOne;
+    private Mould mouldTwo;
+    private Mould mouldThree;
     public Player (String name, Deck deck){
         startHand(deck);
+        mouldOne = new Mould(this, 0, 2);
+        mouldTwo = new Mould(this, 3, 5);
+        mouldThree = new Mould(this, 6, 8);
+        sortHand();
     }
-    public void startHand (Deck d) {
+    private void startHand (Deck d) {
         for (int i = 0; i < 9; i++){
             this.hand.add(d.pop());
         }
     }
 
-    public void sortHand (){
+    private void sortHand (){
         Collections.sort(hand, new Comparator<Card>(){
             @Override
             public int compare (Card c1, Card c2){
@@ -34,5 +41,23 @@ public class Player {
 
     public List<Card> getHand() {
         return hand;
+    }
+
+    public void setMoulds (){
+        mouldOne.setMould();
+        mouldTwo.setMould();
+        mouldThree.setMould();
+    }
+
+    public Mould getMouldOne() {
+        return mouldOne;
+    }
+
+    public Mould getMouldTwo() {
+        return mouldTwo;
+    }
+
+    public Mould getMouldThree() {
+        return mouldThree;
     }
 }
