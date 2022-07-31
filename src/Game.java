@@ -5,15 +5,18 @@ public class Game {
     private Table table;
     public Deck deck;
     private Player player;
-    private Mould mouldOne = new Mould();
-    private Mould mouldTwo = new Mould();
-    private Mould mouldThree = new Mould();
+    private Mould mouldOne;
+    private Mould mouldTwo;
+    private Mould mouldThree;
 
     public Game(){
         table = new Table();
         deck = new Deck();
-        Collections.shuffle(deck.getDeck());
         player = new Player("Player", deck);
+        mouldOne = new Mould(player, 0, 2);
+        mouldTwo = new Mould(player, 3, 5);
+        mouldThree = new Mould(player, 6, 8);
+        Collections.shuffle(deck.getDeck());
         input = new Scanner(System.in);
         movePull();
         System.out.println("Welcome to PifPaf! \n ");
@@ -21,9 +24,10 @@ public class Game {
         boolean wins = true;
         while (wins){
             wins = false;
-            buildMould(mouldOne);
-            buildMould(mouldTwo);
-            buildMould(mouldThree);
+            mouldOne.setMould();
+            mouldTwo.setMould();
+            mouldThree.setMould();
+            
             boolean playerWins = winner();
             if (playerWins){
                 System.out.println("You win!");
@@ -82,52 +86,46 @@ public class Game {
 
     public boolean winner(){
         boolean mouldOneReady = 
-        mouldRuleOne(mouldOne) &&
+        mouldRuleOne(mouldOne) ||
         mouldRuleTwo(mouldOne);
 
         boolean mouldTwoReady = 
-        mouldRuleOne(mouldTwo) &&
+        mouldRuleOne(mouldTwo) ||
         mouldRuleTwo(mouldTwo);
 
         boolean mouldThreeReady = 
-        mouldRuleOne(mouldThree) &&
+        mouldRuleOne(mouldThree) ||
         mouldRuleTwo(mouldThree);
 
-        if (mouldOneReady && mouldTwoReady && mouldThreeReady)
+        if (mouldOneReady && mouldTwoReady && mouldThreeReady){
             return true;
-        return false;
+        } else{
+            return false;
+        }
         
     }
 
     private boolean mouldRuleOne (Mould mould){
         boolean rule = 
-        mould.item(1).getRankValue() ==
-        mould.item(0).getRankValue() + 1 && 
-        mould.item(2).getRankValue() == 
-        mould.item(1).getRankValue() + 1 &&
-        mould.item(0).getSuitValue() ==
-        mould.item(1).getSuitValue() && 
-        mould.item(1).getSuitValue() ==
-        mould.item(2).getSuitValue();
+        mould.getMould().get(1).getRankValue() ==
+        mould.getMould().get(0).getRankValue() + 1 && 
+        mould.getMould().get(2).getRankValue() == 
+        mould.getMould().get(1).getRankValue() + 1 &&
+        mould.getMould().get(0).getSuitValue() ==
+        mould.getMould().get(1).getSuitValue() && 
+        mould.getMould().get(1).getSuitValue() ==
+        mould.getMould().get(2).getSuitValue();
 
         return rule;
     }
 
     private boolean mouldRuleTwo (Mould mould){
         boolean rule = 
-        mould.item(0).getRankValue() ==
-        mould.item(1).getRankValue() &&
-        mould.item(1).getRankValue() ==
-        mould.item(2).getRankValue();
+        mould.getMould().get(0).getRankValue() ==
+        mould.getMould().get(1).getRankValue() &&
+        mould.getMould().get(1).getRankValue() ==
+        mould.getMould().get(2).getRankValue();
 
         return rule;
-    }
-
-    private void buildMould(Mould mould){
-        int index = 0;
-        for (int card = 0; card < 3; card++){
-            mould.setMould(index, player.getHand().get(card));
-            index++;
-        }
     }
 }
